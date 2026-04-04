@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const GymWebsite = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // eslint-disable-line no-unused-vars
   const [activeSection, setActiveSection] = useState("home");
   const [scrollY, setScrollY] = useState(0);
   const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", phone: "", plan: "", message: "" });
