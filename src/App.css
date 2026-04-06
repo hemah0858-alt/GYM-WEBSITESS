@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+/* ===== RESPONSIVE - Add this to App.css ===== */
+
+* {
+  box-sizing: border-box;
+}
+
+/* Contact Section */
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .contact-section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Form inputs full width */
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Prevent horizontal overflow globally */
+section, div {
+  max-width: 100%;
+}

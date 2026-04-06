@@ -116,26 +116,57 @@ const GymWebsite = () => {
           .stats-row { grid-template-columns: repeat(2, 1fr) !important; }
           .classes-grid { grid-template-columns: 1fr 1fr !important; }
         }
+        .hamburger {
+          display: none;
+          background: none;
+          border: none;
+          color: #f0ece0;
+          font-size: 26px;
+          cursor: pointer;
+          z-index: 1000;
+        }
+        .nav-links {
+          display: flex;
+          gap: 32px;
+          align-items: center;
+        }
+        @media (max-width: 768px) {
+          .hamburger { display: block; }
+          .nav-links {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: rgba(10,10,10,0.97);
+            padding: 24px;
+            gap: 20px;
+            border-top: 1px solid #1f1f1f;
+          }
+          .nav-links.open { display: flex; }
+        }
       `}</style>
-
       {/* NAV */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, transition: "all 0.3s", background: scrollY > 60 ? "rgba(10,10,10,0.97)" : "transparent", borderBottom: scrollY > 60 ? "1px solid #1f1f1f" : "1px solid transparent", padding: "0 5%", display: "flex", alignItems: "center", justifyContent: "space-between", height: 70 }}>
+      <nav  style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, transition: "all 0.3s", background: scrollY > 60 ? "rgba(10,10,10,0.97)" : "transparent", borderBottom: scrollY > 60 ? "1px solid #1f1f1f" : "1px solid transparent", padding: "0 5%", display: "flex", alignItems: "center", justifyContent: "space-between", height: 70 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <div style={{ width: 32, height: 32, background: "#c8a84b", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <span style={{ fontWeight: 900, fontSize: 18, color: "#0a0a0a", fontFamily: "'Barlow Condensed', sans-serif" }}>F</span>
           </div>
           <span style={{ fontSize: 22, fontWeight: 900, letterSpacing: "0.08em", color: "#f0ece0" }}>FORGE<span style={{ color: "#c8a84b" }}>GYM</span></span>
         </div>
+<button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? "✕" : "☰"}
+        </button>
 
-        {/* Desktop Nav */}
-        <div style={{ display: "flex", gap: 32, alignItems: "center" }} className="desktop-nav">
+        <div className={`nav-links ${menuOpen ? "open" : ""}`}>
           {["home", "about", "classes", "trainers", "pricing", "contact"].map(s => (
             <span key={s} className="nav-link" style={{ color: activeSection === s ? "#c8a84b" : "#b0a898", textTransform: "uppercase" }} onClick={() => scrollTo(s)}>{s}</span>
           ))}
+          <button className="btn-primary" style={{ padding: "10px 24px", fontSize: 12 }} onClick={() => scrollTo("contact")}>Join Now</button>
         </div>
-        <button className="btn-primary" style={{ padding: "10px 24px", fontSize: 12 }} onClick={() => scrollTo("contact")}>Join Now</button>
-      </nav>
 
+      </nav>
       {/* HERO */}
       <section id="home" className="hero-bg fade-up" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "120px 5% 80px" }}>
         <div style={{ maxWidth: 800 }}>
@@ -326,7 +357,7 @@ const GymWebsite = () => {
               </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 16 }}>
                   <div>
                     <input placeholder="First Name" value={formData.firstName} onChange={e => handleChange("firstName", e.target.value)}
                       style={{ border: formErrors.firstName ? "1px solid #c84b4b" : undefined }} />
